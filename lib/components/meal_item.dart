@@ -1,18 +1,30 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+
 import '../models/meal.dart';
+import '../utils/app_routes.dart';
 
 class MealItem extends StatelessWidget {
   final Meal meal;
+
   const MealItem(this.meal);
 
-  void _selectMeal() {}
+  void _selectMeal(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      AppRoutes.MEAL_DETAIL,
+      arguments: meal,
+    ).then((result) {
+      if(result == null) {
+        print('Sem resultado!');
+      } else {
+        print('O nome da refeição é $result.');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _selectMeal,
+      onTap: () => _selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -61,6 +73,7 @@ class MealItem extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(20),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
@@ -68,7 +81,21 @@ class MealItem extends StatelessWidget {
                       SizedBox(width: 6),
                       Text('${meal.duration} min'),
                     ],
-                  )
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.work),
+                      SizedBox(width: 6),
+                      Text(meal.complexityText),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.attach_money),
+                      SizedBox(width: 6),
+                      Text(meal.costText),
+                    ],
+                  ),
                 ],
               ),
             )
