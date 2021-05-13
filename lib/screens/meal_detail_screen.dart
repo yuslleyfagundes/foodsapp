@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/meal.dart';
 
 class MealDetailScreen extends StatelessWidget {
+
   final Function(Meal) onToggleFavorite;
   final bool Function(Meal) isFavorite;
 
